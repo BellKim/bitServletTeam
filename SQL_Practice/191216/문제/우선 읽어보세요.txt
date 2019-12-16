@@ -1,0 +1,6 @@
+﻿1. ORACLE DB에 DATABASE를 생성하고  insertsqlUTF-8.sql  파일로 테이블을 생성하세요.
+
+2. 이후 OracleHomeWork 01.txt를 수행하세요.
+
+3. 수행한 파일을 정답 폴더에 올려주세요
+
