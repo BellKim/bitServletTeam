@@ -34,8 +34,8 @@ SELECT LPAD(dname, 10, '1234567890')
 FROM dept2;
 
 -- 문제8) Dept2 테이블을 사용하여 dname을 아래의 결과가 나오도록 쿼리 작성하세요.
-SELECT RPAD(dname, 10, '1234567890')
-FROM dept2; -- 다시작성해야함.
+SELECT RPAD(dname, 10, SUBSTR('01234567890', -4))
+FROM dept2; -- 이게 맞는거 같은데?
 
 -- 문제9) Student 테이블에서 아래와 같이 1전공(deptno1)이 101번인 학생들의 이름을 출력하되 가운데 글자만 '#' 으로 표시되게 출력하세요.
 SELECT SUBSTR(name, 1,1) || '#' || SUBSTR(name, -1, 1)
