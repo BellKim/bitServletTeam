@@ -13,32 +13,32 @@
 
 
 2019. 12. 16 ~ 2019. 12. 22 (약 75분)
-웹 프로그램 개요
+웹 프로그램 개요
 강의자료
-개발 환경 설정
-JSP 맛보기
-Servlet 맛보기
+개발 환경 설정,
+JSP 맛보기,
+Servlet 맛보기,
 
-Servlet 맵핑
-Servlet reqeust, response
-Servlet Life-Cycle
+Servlet 맵핑,
+Servlet reqeust, response,
+Servlet Life-Cycle,
 form 데이터 처리
 
 2019. 12. 23 ~ 2019. 12. 29 (약 75분)
-JSP 스크립트
-JSP request, response
-JSP 내장객체
+JSP 스크립트,
+JSP request, response// 
+JSP 내장객체,
 
-Servlet 데이터 공유
-Cookie
-Session
+Servlet 데이터 공유,
+Cookie,
+Session,
 한글처리
 
 2019. 12. 30~ 2020. 01.05 (약 75분)
-오라클 설치
-SQL
-JDBC
-DAO와 DTO
+오라클 설치,
+SQL,
+JDBC,
+DAO와 DTO,
 Connection Pool
 
 
