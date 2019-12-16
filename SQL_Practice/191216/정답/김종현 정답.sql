@@ -52,7 +52,7 @@ NAME	'반갑습니다'
 ----------------------------------
 16 rows selected
 
-SELECT name||'('||position||'), '|| name||''''||position||'''' AS 교수님
+SELECT name||'('||position||'), '|| name||' '' '||position||'''' AS 교수님
 FROM professor;
 
 
@@ -71,7 +71,7 @@ NAME
 
 SELECT name
 FROM professor
-WHERE name >='자%';
+WHERE name between '자%'AND '짛%';
 
 
 
