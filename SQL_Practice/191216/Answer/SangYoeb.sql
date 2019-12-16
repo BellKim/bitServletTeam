@@ -65,7 +65,11 @@ SELECT name, tel, REPLACE(SUBSTR(tel,1,INSTR(tel,')',1,1)-1), '055', '경남' )
 FROM student
 WHERE deptno1 = 101; -- 모르겠음
 
-SELECT name, tel, REGEXP_REPLACE(SUBSTR(tel,1,INSTR(tel,')',1,1)-1), '055|02', '경남' )
+SELECT name, tel, REGEXP_REPLACE(SUBSTR(tel,1,INSTR(tel,')',1,1)-1), '02|031|051|052|055', '경남')
+FROM student
+WHERE deptno1 = 101;
+
+SELECT name, tel, REPLACE(SUBSTR(tel,1,INSTR(tel,')',1,1)-1), '055', '경남')
 FROM student
 WHERE deptno1 = 101;
 
