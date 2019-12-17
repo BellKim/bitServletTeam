@@ -175,8 +175,15 @@ S/W지원890
 -----------------
 13 rows selected
 
+SELECT RPAD(dname, 10, '7890') AS LPAD연습
+FROM dept2;
 
-9. Student 테이블에서 아래와 같이 1전공(deptno1)이 10번인 학생들의 이름을 출력하되
+--답안지 참고함
+select rpad(dname,10,substr('1234567897890def',lengthb(dname)+1))"RPAD연습"
+from dept2;
+
+
+9. Student 테이블에서 아래와 같이 1전공(deptno1)이 101번인 학생들의 이름을 출력하되
 
 가운데 글자만 '#' 으로 표시되게 출력하세요.
 
@@ -187,6 +194,14 @@ REPLACE
 일#매
 이#나
 ---------------
+
+SELECT name, replace(name, substr(name,2,1),'#')
+FROM student
+WHERE deptno1=101;
+--REPLACE('문자열' or 열 이름, '바꾸려는 문자열', '바뀔 문자열')
+--substr('문자열',번째, 갯수)
+select name, substr(name,2,1) 
+from student;
 
 
 10. Student 테이블에서 다음과 같이 1전공(deptno1)이 101번인 학생들의 이름과
@@ -200,17 +215,28 @@ NAME	SSN
 김신영	760123*******
 ....
 ----------------
-
-
+SELECT name, REPLACE(jumin,substr(jumin, 6,12),'******') AS SSN
+FROM student
+WHERE deptno1=101;
+SELECT *
+FROM student;
 
 11. Student 테이블의 Birthday 칼럼을 참조하여 생일이 3월인 학생의 이름과 birthday를 출력
 
 NAME	BIRTHDAY
 ------------------
 박동호	03-MAR-75
-김주현	24-MAR-78
+김주현	24-MAR-78   substr(jumin, 6,12)
 ------------------
- 
+ SELECT name, TO_CHAR(birthday, 'YYYY-mon-DD')
+FROM student;
+
+select name, to_char(birthday,'dd-mon-yy')
+from student
+where to_char(birthday,'mm')='03';
+
+SELECT *
+FROM student;
 
 
 12 . Student 테이블에서 1전공(deptno1)이 101번인 학생의 이름과 전화번호와 지역번호를 출력
@@ -226,6 +252,19 @@ NAME	TEL	지역
 일지매	02)6788-4861	서울
 ...
 -----------------------------
+SELECT name, TEL, DECODE(substr(tel,1,instr(tel,')')-1),
+                                '02','서울',
+                                '031','경기',
+                                '051','부산',
+                                '052','울산',
+                                '055','경남',
+                                '기타') AS " 지 역 "
+FROM student
+WHERE deptno1=101;
+
+SELECT * FROM student;
+
+
 
 
 13. 교수테이블(professor)을 조회하여 교수의 급여액수를 기준으로 200 미만은 4급,
