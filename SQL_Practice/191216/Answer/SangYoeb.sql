@@ -34,7 +34,7 @@ SELECT LPAD(dname, 10, '1234567890')
 FROM dept2;
 
 -- 문제8) Dept2 테이블을 사용하여 dname을 아래의 결과가 나오도록 쿼리 작성하세요.
-SELECT RPAD(dname, 10, SUBSTR('01234567890', -4))
+SELECT RPAD(dname, 10, SUBSTR('1234567890', -4))
 FROM dept2; -- 이게 맞는거 같은데?
 
 -- 문제9) Student 테이블에서 아래와 같이 1전공(deptno1)이 101번인 학생들의 이름을 출력하되 가운데 글자만 '#' 으로 표시되게 출력하세요.
@@ -55,26 +55,35 @@ SELECT name, replace(jumin, SUBSTR(jumin, 7, 7), '*******')
 FROM student
 WHERE deptno1 = 101;
 
+SELECT name, replace(pay, TO_CHAR(pay BETWEEN 201 AND 300), '3급')
+FROM professor;
+
 -- 문제11) Student 테이블의 Birthday 칼럼을 참조하여 생일이 3월인 학생의 이름과 birthday를 출력
 SELECT name, birthday, SUBSTR(TO_CHAR(birthday, 'YYYYMMDD'), 5, 2) || '-MAR-' || SUBSTR(TO_CHAR(birthday, 'YYYYMMDD'), 7, 2)"birthday"
 FROM student
 WHERE SUBSTR(TO_CHAR(birthday, 'YYYYMMDD'), 5, 4) BETWEEN 0300 AND 0400;
 
 -- 문제12) Student 테이블에서 1전공(deptno1)이 101번인 학생의 이름과 전화번호와 지역번호를 출력 지역번호가 02는 서울, 031은 경기, 051은 부산, 052는 울산, 055는 경남으로 출력하세요.
-SELECT name, tel, REPLACE(SUBSTR(tel,1,INSTR(tel,')',1,1)-1), '055', '경남' )
-FROM student
-WHERE deptno1 = 101; -- 모르겠음
-
-SELECT name, tel, REGEXP_REPLACE(SUBSTR(tel,1,INSTR(tel,')',1,1)-1), '02|031|051|052|055', '경남')
-FROM student
-WHERE deptno1 = 101;
-
-SELECT name, tel, REPLACE(SUBSTR(tel,1,INSTR(tel,')',1,1)-1), '055', '경남')
+SELECT name, tel,
+    CASE SUBSTR(tel,1,INSTR(tel,')',1,1)-1)
+    WHEN '02' THEN '서울'
+    WHEN '031' THEN '경기'
+    WHEN '051' THEN '부산'
+    WHEN '02' THEN '서울'
+    WHEN '052' THEN '울산'
+    ELSE '기타'
+    END AS "지역"
 FROM student
 WHERE deptno1 = 101;
 
 -- 문제13) 교수테이블(professor)을 조회하여 교수의 급여액수를 기준으로 200 미만은 4급, 
 -- 201~300은 3급, 301~400은 2급, 401 이상은 1급으로 표시하여 교수의 번호, 교수이름, 급여, 등급을 출력하세요. 단 pay컬럼은 내림차순으로 정렬하세요.
-SELECT profno, name, pay
+SELECT profno, name, pay,
+    CASE
+    WHEN pay BETWEEN 201 AND 300 THEN '3급'
+    WHEN pay BETWEEN 301 AND 400 THEN '2급'
+    WHEN pay >= 401 THEN ' 1급'
+    ELSE '4급'
+    END AS "등급"
 FROM professor
 ORDER BY pay DESC;
