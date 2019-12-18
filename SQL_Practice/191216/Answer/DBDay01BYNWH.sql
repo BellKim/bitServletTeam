@@ -18,6 +18,8 @@ FROM student;
 --2. 홍길동(교수), 홍길동'교수' 이렇게 나오도록 출력하세요.
 SELECT name || '(' || position || '), ' || name || CHR(39) || position || CHR(39) as 교수님
 FROM professor;
+
+-- 대체인용연산자 q'[']'
 /*
 <결과화면>
 
@@ -78,7 +80,7 @@ NAME	WEIGHT
 
 --6. Student 테이블을 참조해서 아래 화면과 같이 1전공(deptno1)이 101번인 학생의
 --이름과 전화번호와 지역번호를 출력하세요(단, 지역번호는 숫자만 나와야 합니다.)
-SELECT name, tel, SUBSTR(tel, 1, 3) as 지역번호
+SELECT name, tel, SUBSTR(tel, 1, instr(tel, ')')-1) as 지역번호
 FROM student
 WHERE deptno1 = 101;
 
@@ -98,7 +100,7 @@ NAME		TEL		지역번호
 --나머지 빈 자리는 해당 자리의 숫자가 나오면 됩니다. 즉 사장실은 이름이 총 6바이트
 --이므로 숫자가 1234까지 나오는 것입니다.
 SELECT LPAD(dname, 10, 1234)
-FROM dept2
+FROM dept2;
 /*
 LPAD 연습
 ----------------
@@ -113,4 +115,126 @@ LPAD 연습
 영업기획팀
 123영업1팀
 -----------------
+*/
+
+--8. Dept2 테이블을 사용하여 dname을 아래의 결과가 나오도록 쿼리 작성하세요.
+SELECT RPAD(dname, 10, 7890)
+FROM dept2;
+
+/*
+RPAD 연습
+-----------------
+사장실7890
+경영지원부
+재무관리팀
+총무팀7890
+기술부7890
+H/W지원890
+S/W지원890
+영업부7890
+영업기획팀
+영업1팀890
+영업2팀890
+영업3팀890
+영업4팀890
+-----------------
+13 rows selected
+*/
+
+--9. Student 테이블에서 아래와 같이 1전공(deptno1)이 10번인 학생들의 이름을 출력하되
+--가운데 글자만 '#' 으로 표시되게 출력하세요.
+SELECT substr(name, 1, 1) || '#' ||substr(name, 3,1)
+FROM student;
+/*
+REPLACE
+--------------
+서#수
+김#영
+일#매
+이#나
+---------------
+*/
+
+--10. Student 테이블에서 다음과 같이 1전공(deptno1)이 101번인 학생들의 이름과
+--주민등록번호를 출력하되 주민등록번호의 뒤 7자리는 '*'로 표시되게 출력하세요
+SELECT name, substr(jumin, 1, 6) || '*******' SSN
+FROM student;
+
+/*
+NAME	SSN
+--------------
+서진수	751023*******
+김신영	760123*******
+....
+----------------
+*/
+
+
+--11. Student 테이블의 Birthday 칼럼을 참조하여 생일이 3월인 학생의 이름과 birthday를 출력
+SELECT name, TO_CHAR(birthday, 'DD-MON-YY') as BIRTHDAY
+FROM student
+WHERE EXTRACT(month from birthday) like 03;
+
+/*
+NAME	BIRTHDAY
+------------------
+박동호	03-MAR-75
+김주현	24-MAR-78
+------------------
+*/
+
+--12 . Student 테이블에서 1전공(deptno1)이 101번인 학생의 이름과 전화번호와 지역번호를 출력
+--지역번호가 02는 서울, 031은 경기, 051은 부산, I052는 울산, 055는 경남으로 출력하세요.
+SELECT name, tel, DECODE(SUBSTR(tel, 1, INSTR(tel, ')') -1),
+                        '02','서울',
+                        '031','경기도',
+                        '051','부산',
+                        '055','울산',
+                        '055','경남'
+                        ) as 지역
+FROM student
+WHERE deptno1 = 101;
+
+/*
+(DECODE 사용해서 풀 것)
+
+NAME	TEL	지역
+-------------------------
+서진수	055)381-2158	경남
+김신영	055)333-6328	경남
+일지매	02)6788-4861	서울
+...
+-----------------------------
+*/
+
+--13. 교수테이블(professor)을 조회하여 교수의 급여액수를 기준으로 200 미만은 4급,
+--201~300은 3급, 301~400은 2급, 401 이상은 1급으로 표시하여 교수의 번호, 교수이름, 급여,
+--등급을 출력하세요. 단 pay컬럼은 내림차순으로 정렬하세요.
+
+SELECT profno, name, pay,
+    CASE 
+        WHEN pay <= 200 THEN '4급'
+        WHEN pay BETWEEN 201 AND 300 THEN '3급'
+        WHEN pay BETWEEN 301 AND 400 THEN '2급'
+        WHEN pay >= 401 THEN '1급'
+    END as 등급
+FROM professor;
+
+
+
+/*
+PROFNO		NAME		PAY	등급
+------------------------------------------------
+4001		심슨		    570	1급
+1001		조인형		550	1급
+....
+
+
+3003		김현정		290	3급
+
+....
+
+------------------------------------------------
+
+16 rows selected
 */
