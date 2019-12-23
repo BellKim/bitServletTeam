@@ -146,3 +146,6 @@ hs_err_pid*
 ## apple finder file
 *.ds_store
 
+## TomcatFile ignore
+
+Tomcat v8.5 Server at localhost-config/
