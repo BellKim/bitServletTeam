@@ -141,3 +141,11 @@ hs_err_pid*
 .history
 
 # End of https://www.gitignore.io/api/java,eclipse,visualstudiocode
+
+
+## apple finder file
+*.ds_store
+
+## TomcatFile ignore
+
+Tomcat v8.5 Server at localhost-config/
