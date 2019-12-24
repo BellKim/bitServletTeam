@@ -144,7 +144,7 @@ hs_err_pid*
 
 
 ## apple finder file
-*.ds_store
+*.DS_Store
 
 ## TomcatFile ignore
 

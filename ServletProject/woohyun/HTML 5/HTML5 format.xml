@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="jsp_new" deleted="false" description="HTML5 format" enabled="true" name="HTML5 format">&lt;%@ page language="java" contentType="text/html; charset=${encoding}"
+    pageEncoding="${encoding}"%&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="${encoding}"&gt;
+		&lt;title&gt;Insert title here&lt;/title&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+
+	&lt;/body&gt;
+&lt;/html&gt;</template></templates>
