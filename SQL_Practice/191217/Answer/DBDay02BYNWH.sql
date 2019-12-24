@@ -58,3 +58,56 @@ MAX	MIN	AVG
 */
 SELECT MAX(pay + NVL(bonus, 0)) MAX, MIN(pay + NVL(bonus, -pay)) MIN, ROUND(AVG(pay + NVL(bonus, -pay)),1) AVG
 FROM professor;
+
+--5. student 테이블의 birthday 칼럼을 사용해 아래화면처럼 월별로 태어난 인원수를 구하시오.
+/*
+합계  1월 2월 3월 4월 5월 6월 7월 8월 9월 10월 11월 12월
+-----------------------------------------------------------
+20     3   3   2   2   0   1   0   2   2   2    1     2
+-----------------------------------------------------------
+*/
+SELECT
+    count(birthday) 합계,
+    SUM(DECODE(TO_CHAR(birthday, 'MM'), '01', 1)) "1월",
+    SUM(DECODE(TO_CHAR(birthday, 'MM'), '02', 1)) "2월",
+    SUM(DECODE(TO_CHAR(birthday, 'MM'), '03', 1)) "3월",
+    SUM(DECODE(TO_CHAR(birthday, 'MM'), '04', 1)) "4월",
+    SUM(DECODE(TO_CHAR(birthday, 'MM'), '05', 1)) "5월",
+    SUM(DECODE(TO_CHAR(birthday, 'MM'), '06', 1)) "6월",
+    SUM(DECODE(TO_CHAR(birthday, 'MM'), '07', 1)) "7월",
+    SUM(DECODE(TO_CHAR(birthday, 'MM'), '08', 1)) "8월",
+    SUM(DECODE(TO_CHAR(birthday, 'MM'), '09', 1)) "9월",
+    SUM(DECODE(TO_CHAR(birthday, 'MM'), '10', 1)) "10월",
+    SUM(DECODE(TO_CHAR(birthday, 'MM'), '11', 1)) "11월",
+    SUM(DECODE(TO_CHAR(birthday, 'MM'), '12', 1)) "12월"
+FROM student;
+
+/*
+6. student 테이블의 tel 칼럼을 참고해 아래처럼 지역별 인원수를 출력.
+단 02는 서울 031은 경기 051은 부산 052는 울산 053은 대구 055는 경남이다.
+
+합계	서울	경기	부산	울산	대구	경남
+----------------------------------------------------------
+20	   6	   2 	   4	   0	  2	   6
+-----------------------------------------------------------
+*/
+SELECT
+    count(tel) 합계,
+    SUM(DECODE(SUBSTR(tel, 1, INSTR(tel, ')' ) -1), '02', 1)) "서울",
+    SUM(DECODE(SUBSTR(tel, 1, INSTR(tel, ')' ) -1), '031', 1)) "경기",
+    SUM(DECODE(SUBSTR(tel, 1, INSTR(tel, ')' ) -1), '051', 1)) "부산",
+    SUM(DECODE(SUBSTR(tel, 1, INSTR(tel, ')' ) -1), '052', 1)) "울산",
+    SUM(DECODE(SUBSTR(tel, 1, INSTR(tel, ')' ) -1), '053', 1)) "대구",
+    SUM(DECODE(SUBSTR(tel, 1, INSTR(tel, ')' ) -1), '055', 1)) "경남"
+FROM student;
+
+
+
+
+
+
+
+
+
+
+
